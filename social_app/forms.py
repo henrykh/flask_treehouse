@@ -50,3 +50,8 @@ class RegisterForm(Form):
         'Confirm Password',
         validators=[DataRequired()]
     )
+
+
+class LoginForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
