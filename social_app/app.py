@@ -3,7 +3,7 @@ from flask import (Flask, g,
                    redirect, url_for)
 from flask.ext.bcrypt import check_password_hash
 from flask.ext.login import (LoginManager, login_required,
-                             login_user, logout_user)
+                             login_user, logout_user, current_user)
 
 import forms
 import models
@@ -37,6 +37,7 @@ def before_request():
     # g is the flask global object
     g.db = models.DATABASE
     g.db.connect()
+    g.user = current_user
 
 
 @app.after_request
@@ -59,6 +60,18 @@ def register():
         )
         return redirect(url_for('index'))
     return render_template('register.html', form=form)
+
+
+@app.route('/new_post', methods=('GET', 'POST'))
+@login_required
+def post():
+    form = forms.PostForm()
+    if form.validate_on_submit():
+        models.Post.create(user=g.user._get_current_object(),
+                           content=form.content.data.strip())
+        flash("Message posted! Thanks!", "success")
+        return redirect(url_for('index'))
+    return render_template('post.html', form=form)
 
 
 @app.route('/')
