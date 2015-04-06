@@ -92,8 +92,8 @@ def stream(username=None):
         user = current_user
     if username:
         template = 'user_stream.html'
-    return render_template(template, stream=stream)
-    
+    return render_template(template, stream=stream, user=user)
+
 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
