@@ -79,11 +79,10 @@ class Relationship(Model):
     to_user = ForeignKeyField(User, related_name='related_to')
 
     class Meta:
-        database=DATABASE
+        database = DATABASE
         indexes = (
             (('from_user', 'to_user'), True)
-            )
-
+        )
 
 
 def initialize():
