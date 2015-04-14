@@ -95,6 +95,12 @@ def stream(username=None):
     return render_template(template, stream=stream, user=user)
 
 
+@app.route('/post/<int:post_id>')
+def view_post(post_id):
+    posts = models.Post.select().where(models.Post.id == post_id)
+    return render_template('stream.html', stream=posts)
+
+
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     form = forms.LoginForm()
