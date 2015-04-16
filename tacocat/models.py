@@ -28,6 +28,10 @@ class User(UserMixin, Model):
 
 
 class Taco(Model):
+    user = ForeignKeyField(
+        rel_model=User,
+        related_name='tacos'
+        )
     protein = CharField()
     shell = CharField()
     cheese = BooleanField()
