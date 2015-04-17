@@ -15,7 +15,16 @@
           <tbody>
         {% for taco in tacos %}
             <tr>
-              <!-- taco attributes here -->
+              {{ taco.protein }}
+            </tr>
+            <tr>
+              {{ taco.shell }}
+            </tr>
+            <tr>
+              {{ taco.cheese }}
+            </tr>
+            <tr>
+              {{ taco.extras }}
             </tr>
         {% endfor %}
           </tbody>
