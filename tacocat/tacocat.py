@@ -53,7 +53,6 @@ def register():
     if form.validate_on_submit():
         flash("Yay, you registered!", "success")
         models.User.create_user(
-            username=form.username.data,
             email=form.email.data,
             password=form.password.data
         )
@@ -110,7 +109,6 @@ if __name__ == '__main__':
     models.initialize()
     try:
         models.User.create_user(
-            username='henryh',
             email='henryhowes@gmail.com',
             password='secret',
             admin=True
