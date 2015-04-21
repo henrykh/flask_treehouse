@@ -1,6 +1,6 @@
 from flask import (Flask, g,
                    render_template, flash,
-                   redirect, url_for, abort)
+                   redirect, url_for, abort, jsonify)
 from flask.ext.bcrypt import check_password_hash
 from flask.ext.login import (LoginManager, login_required,
                              login_user, logout_user, current_user)
@@ -104,6 +104,18 @@ def taco():
         return redirect(url_for('index'))
     return render_template('taco.html', form=form)
 
+
+@app.route('/api/tacos/', methods=['GET'])
+def get_tacos():
+    import pdb; pdb.set_trace()
+    tacos = models.Taco.select()
+    return jsonify({'tacos': tacos})
+
+
+@app.route('/api/tacos/<int:taco_id>', methods=['GET'])
+def get_taco(taco_id):
+    taco = models.Taco.select().where(id=taco_id)
+    return jsonify({'taco': taco[0]})
 
 if __name__ == '__main__':
     models.initialize()
